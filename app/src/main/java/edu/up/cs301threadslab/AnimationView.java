@@ -1,5 +1,7 @@
 package edu.up.cs301threadslab;
 
+import static java.lang.Thread.sleep;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -82,6 +84,11 @@ public class AnimationView extends SurfaceView{
         }
 
         // invalidate the object when it's drawn
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         this.invalidate();
     }//draw
 

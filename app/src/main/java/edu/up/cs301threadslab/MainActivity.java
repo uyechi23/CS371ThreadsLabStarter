@@ -37,6 +37,10 @@ public class MainActivity extends Activity
         theSeekBar = (SeekBar)findViewById(R.id.seekBar);
         theSeekBar.setOnSeekBarChangeListener(this);
 
+        // Create a ThreadedAnimationView thread and start it
+        ThreadedAnimationView tav = new ThreadedAnimationView(myAV);
+        tav.start();
+
     }//onClick
 
     @Override

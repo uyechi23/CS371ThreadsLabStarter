@@ -67,10 +67,15 @@ public class StarAnimation extends Animation {
     /** draws the next frame of the animation */
     @Override
     public void draw(Canvas canvas) {
-        for (Star s : field) {
-            s.draw(canvas);
-            if (this.twinkle) {
-                s.twinkle();
+        // synchronize the Vector of Star objects
+        // this is to prevent the ChangeStarThread thread from adding or removing stars
+        // while the Vector of Star objects is being drawn
+        synchronized(this.field) {
+            for (Star s : field) {
+                s.draw(canvas);
+                if (this.twinkle) {
+                    s.twinkle();
+                }
             }
         }
 

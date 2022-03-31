@@ -26,7 +26,7 @@ public class ThreadedAnimationView extends Thread {
             this.av.postInvalidate();
             // try-catch to slow down the animation
             try {
-                sleep(3000);
+                sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

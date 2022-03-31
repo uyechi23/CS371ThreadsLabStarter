@@ -16,6 +16,8 @@ public class StarAnimation extends Animation {
 
     /* the field of stars */
     public static final int INIT_STAR_COUNT = 100;
+    public static final int MAX_STAR_COUNT = 1000;
+    public static final int MIN_STAR_COUNT = 100;
     private Vector<Star> field = new Vector<Star>();
 
     /* when this is set to 'false' the next animation frame won't twinkle */
@@ -71,11 +73,34 @@ public class StarAnimation extends Animation {
         this.twinkle = true;
     }//draw
 
-    /** the seekbar progress specifies the brightnes of the stars. */
+    /** the seekbar progress specifies the brightness of the stars. */
     @Override
     public void progressChange(int newProgress) {
-        int brightness = 255 - (newProgress * 2);
-        Star.starPaint.setColor(Color.rgb(brightness, brightness, brightness));
-        this.twinkle = false;
+        // retrieve the progress of the SeekBar
+        Log.d("Progress", "" + newProgress);
+
+        // Stars should range from 100-1000
+        // SeekBar ranges from 0-100
+        // Extra stars should range from 0-900, 9 times the SeekBar scale
+        int newStars = newProgress * 9;
+        int targetStars = INIT_STAR_COUNT + newStars;
+
+        // get the number of current stars
+        int currStars = this.field.size();
+
+        // while the target number of stars have not been reached,
+        // add or remove stars
+        while(currStars != targetStars){
+            if(currStars < targetStars){
+                addStar();
+            }else{
+                removeStar();
+            }
+            currStars = this.field.size();
+        }
+
+        // Log the number of stars
+        Log.d("Star Count", "Stars: " + this.field.size() + ", Progress: " + newProgress);
+
     }
 }//class StarAnimation
